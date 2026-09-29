@@ -12,7 +12,7 @@ int length(char *s)
 
 void xorcipher(char *s)
 {
-    char key = 'l';
+    char key = 'K';
     int len = length(s);
     for (int i = 0; i < len; i++)
     {
@@ -22,7 +22,7 @@ void xorcipher(char *s)
 
 int main()
 {
-    char sample_string[] = "THIS IS SAMPLE";
+    char sample_string[] = "HarsH";
     printf("Original: %s\n", sample_string);
     xorcipher(sample_string);
     printf("Encrypting: %s\n", sample_string);
