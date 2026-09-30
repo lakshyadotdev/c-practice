@@ -27,14 +27,24 @@ void encode(char *buffer, size_t t)
     int total_bits = t * 8;
     int complete_6bit = total_bits / 6;
     int last_bit_remainder = total_bits % 6;
-    int padding_bytes = (complete_6bit + (last_bit_remainder != 0)) % 3;
-    printf("-------------------\nTotalBytes: %zu => %d \nComplete 6Bits: %d\nRemainderBits: %d\nPadding Bytes required: %d\n", t, total_bits, complete_6bit, last_bit_remainder, padding_bytes);
+    int groups = complete_6bit + (last_bit_remainder != 0);
+    int padding_bytes = (4 - (groups % 4)) % 4;
+    printf("-------------------\nTotalBytes: %zu * 8 => %d \nComplete 6Bits: %d\nRemainderBits: %d\nGroups: %d\nPadding Bytes required: %d\n", t, total_bits, complete_6bit, last_bit_remainder, groups, padding_bytes);
+    for (int b = 0; b < t; b++)
+    {
+        int byte = buffer[b];
+        int temp[6];
+        for (int k = 7; k >= 0; k--)
+        {
+            int bit = byte >> k & 1;
+                }
+    }
 }
 
 int main()
 {
-    char sample_string[] = "a";
-    printb(sample_string, sizeof(sample_string) / sizeof(sample_string[0]), 6);
-    encode(sample_string, sizeof(sample_string) / sizeof(sample_string[0]));
+    char sample_string[] = "aaaaa";
+    printb(sample_string, sizeof(sample_string) / sizeof(sample_string[0]) - 1, 6);
+    encode(sample_string, sizeof(sample_string) / sizeof(sample_string[0]) - 1);
     return 0;
 }
