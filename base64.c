@@ -24,33 +24,16 @@ void printb(char *buffer, size_t t, int base)
 
 void encode(char *buffer, size_t t)
 {
-    int bit6 = ((t * 8) / 6);
-    int n_padding = 3 - bit6 % 4;
-    char encodedStr[bit6 + n_padding + 1];
-    int count = 0;
-    printf("%d %d \n", bit6 + n_padding + 1);
-    char temp[6] = {0};
-    printf("No. of proper 6 Bits: %d\nNo. of '=' needed: %d \n", bit6, n_padding);
-    for (int i = 0; i < t; i++)
-    {
-        size_t num = buffer[i];
-        for (int bit = 7; bit >= 0; bit--)
-        {
-            if (count == 6)
-            {
-                count = 0;
-            }
-
-            printf("%zu", (num >> bit) & 1);
-            temp[count] = (num >> bit) & 1;
-            count++;
-        }
-    }
+    int total_bits = t * 8;
+    int complete_6bit = total_bits / 6;
+    int last_bit_remainder = total_bits % 6;
+    int padding_bytes = (complete_6bit + (last_bit_remainder != 0)) % 3;
+    printf("-------------------\nTotalBytes: %zu => %d \nComplete 6Bits: %d\nRemainderBits: %d\nPadding Bytes required: %d\n", t, total_bits, complete_6bit, last_bit_remainder, padding_bytes);
 }
 
 int main()
 {
-    char sample_string[] = "LJK";
+    char sample_string[] = "a";
     printb(sample_string, sizeof(sample_string) / sizeof(sample_string[0]), 6);
     encode(sample_string, sizeof(sample_string) / sizeof(sample_string[0]));
     return 0;
