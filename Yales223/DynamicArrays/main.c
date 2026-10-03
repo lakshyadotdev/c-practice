@@ -71,7 +71,6 @@ void destroyArray(struct array *arr)
 int main()
 {
     struct array *arr = createArray();
-    // printf("%p\n", (createArray()));
     arrayprint(arr);
     arrayExpand(arr, 32);
     arrayprint(arr);
@@ -81,7 +80,7 @@ int main()
         arraySet(arr, i, 2 * i);
     }
     arrayprint(arr);
-    destroyArray(arr);
-    arrayprint(arr);
+    // destroyArray(arr);
+    // arrayprint(arr);
     return 0;
 }
